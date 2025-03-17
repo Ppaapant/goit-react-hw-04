@@ -1,29 +1,17 @@
 import ImageCard from "./ImageCard";
-import { useState } from "react";
-import ImageModal from "../ImageModal";
-import style from "./ImageGallery.module.css"
+import style from "./ImageGallery.module.css";
 
-const ImageGallery = ({ images}) => {
+const ImageGallery = ({ images, onImageClick }) => {
+  return (
+    <ul className={style.gallery}>
+      {images.map((image) => (
+        <li key={image.id}>
+          <ImageCard image={image} onImageClick={() => onImageClick(image)} />
+        </li>
+      ))}
+    </ul>
+  );
+};
 
-const [isOpen, setIsOpen] = useState(null);
+export default ImageGallery;
 
-
-// const handleOpen = () => {
-//     console.log('Клік по зображенню:', image);
-//     setIsOpen(true);
-//   };
-
-	return (
-	  <ul>
-		{images.map((image) => (
-		  <li key={image.id} onClick={() => setIsOpen(image)} >
-			{/* <img src={image.urls.small} alt={image.alt_description} onClick={() => setIsOpen(image)} /> */}
-			<ImageCard image={image}/>
-		  </li>
-		))}
-		{isOpen && <ImageModal image={isOpen} onClose={() => setIsOpen(false)} />}
-	  </ul>
-	);
-  };
-
-  export default ImageGallery;
